@@ -43,19 +43,24 @@ namespace SistemTokoBuku.Tests
             SalesHistory salesHistory = new SalesHistory();
 
             // Act
-            salesHistory.AddSale(1, 2, 50);
+            salesHistory.AddSale(BookType.BookA, 2, 50);
 
             // Assert
-            SaleRecord expectedSaleRecord = new SaleRecord { SaleDate = salesHistory.salesHistory[0].SaleDate, 
-                BookId = 1, SoldBook = "Book A", Quantity = 2, TotalPrice = 50 };
+            SaleRecord expectedSaleRecord = new SaleRecord
+            {
+                SaleDate = salesHistory.salesHistory[0].SaleDate,
+                BookType = BookType.BookA,
+                SoldBook = "Book A",
+                Quantity = 2,
+                TotalPrice = 50
+            };
             SaleRecord actualSaleRecord = salesHistory.salesHistory[0];
             Assert.AreEqual(expectedSaleRecord.SaleDate, actualSaleRecord.SaleDate);
-            Assert.AreEqual(expectedSaleRecord.BookId, actualSaleRecord.BookId);
+            Assert.AreEqual(expectedSaleRecord.BookType, actualSaleRecord.BookType);
             Assert.AreEqual(expectedSaleRecord.SoldBook, actualSaleRecord.SoldBook);
             Assert.AreEqual(expectedSaleRecord.Quantity, actualSaleRecord.Quantity);
             Assert.AreEqual(expectedSaleRecord.TotalPrice, actualSaleRecord.TotalPrice);
         }
-
 
         [TestMethod]
         public void AddSale_InvalidBookId_ThrowsException()
@@ -64,7 +69,8 @@ namespace SistemTokoBuku.Tests
             SalesHistory salesHistory = new SalesHistory();
 
             // Assert
-            Assert.ThrowsException<ArgumentException>(() => salesHistory.AddSale(4, 1, 20));
+            Assert.ThrowsException<ArgumentException>(() => salesHistory.AddSale((BookType)4, 1, 20));
         }
     }
+
 }
