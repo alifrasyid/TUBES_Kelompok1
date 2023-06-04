@@ -5,33 +5,40 @@ using System.Net;
 
 namespace SistemTokoBuku
 {
+    public enum BookType
+    {
+        BookA = 1,
+        BookB = 2,
+        BookC = 3
+    }
+
     public class SalesHistory
     {
         public List<SaleRecord> salesHistory;
-        public Dictionary<int, string> bookDictionary;
+        public Dictionary<BookType, string> bookDictionary;
 
         public SalesHistory()
         {
             salesHistory = new List<SaleRecord>();
-            bookDictionary = new Dictionary<int, string>
+            bookDictionary = new Dictionary<BookType, string>
             {
-                { 1, "Book A" },
-                { 2, "Book B" },
-                { 3, "Book C" }
+                { BookType.BookA, "Book A" },
+                { BookType.BookB, "Book B" },
+                { BookType.BookC, "Book C" }
             };
         }
 
-        public void AddSale(int bookId, int quantity, decimal totalPrice)
+        public void AddSale(BookType bookType, int quantity, decimal totalPrice)
         {
             // Pre-kondisi: Item penjualan tidak boleh null
-            if (!bookDictionary.ContainsKey(bookId))
+            if (!bookDictionary.ContainsKey(bookType))
                 throw new ArgumentException("ID Buku tidak valid.");
 
             SaleRecord saleRecord = new SaleRecord
             {
                 SaleDate = DateTime.Now,
-                BookId = bookId,
-                SoldBook = bookDictionary[bookId],
+                BookType = bookType,
+                SoldBook = bookDictionary[bookType],
                 Quantity = quantity,
                 TotalPrice = totalPrice
             };
@@ -59,7 +66,7 @@ namespace SistemTokoBuku
     public class SaleRecord
     {
         public DateTime SaleDate { get; set; }
-        public int BookId { get; set; }
+        public BookType BookType { get; set; }
         public string SoldBook { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }

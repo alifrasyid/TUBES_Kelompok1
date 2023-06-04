@@ -33,8 +33,8 @@ public class Program
         SalesHistory salesHistory = new SalesHistory();
 
         // Simulasi menambahkan penjualan
-        salesHistory.AddSale(1, 2, 50);
-        salesHistory.AddSale(2, 1, 20);
+        salesHistory.AddSale(BookType.BookA, 2, 50);
+        salesHistory.AddSale(BookType.BookB, 1, 20);
 
         // Menampilkan riwayat penjualan
         salesHistory.DisplaySalesHistory();
